@@ -1,0 +1,1598 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bé Học Tiếng Anh Lớp 2 - Global Success</title>
+    <style>
+        :root {
+            --primary: #FF9800;
+            --secondary: #4CAF50;
+            --accent: #2196F3;
+            --danger: #FF5722;
+            --purple: #9C27B0;
+            --bg-color: #F0F7FF;
+            --text-color: #2C3E50;
+            --card-bg: #FFFFFF;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', 'Segoe UI', cursive, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* HEADER */
+        header {
+            width: 100%;
+            height: 65px;
+            background-color: var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .btn-header {
+            background-color: var(--danger);
+            color: white;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 3px #D84315;
+            transition: 0.1s;
+        }
+        .btn-header:active { transform: translateY(2px); box-shadow: none; }
+        .btn-video-nav { background-color: var(--purple); box-shadow: 0 3px #6A1B9A; }
+
+        #header-title {
+            font-size: 17px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            flex-grow: 1;
+            padding: 0 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .header-score-badge {
+            background: #FFF;
+            color: #E65100;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* CONTAINER */
+        #app-container {
+            width: 95%;
+            max-width: 960px;
+            margin: 12px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* HOME SCREEN */
+        #home-screen {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 16px;
+            width: 100%;
+            padding: 10px 0;
+        }
+
+        .unit-card {
+            background: white;
+            border-radius: 20px;
+            padding: 16px 12px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.06);
+            border: 4px solid #E2E8F0;
+            transition: all 0.2s ease;
+        }
+        .unit-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 10px 20px rgba(255,152,0,0.22);
+        }
+        .unit-card .u-icon { font-size: 44px; }
+        .unit-card h3 { font-size: 16px; margin: 8px 0; color: #2E7D32; line-height: 1.3; }
+        .unit-card .u-phonics { font-size: 13px; color: #888; font-weight: normal; }
+
+        /* STEP PILLS (5 BƯỚC) */
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 14px;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .step-pill {
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #E2E8F0;
+            font-size: 13px;
+            font-weight: bold;
+            color: #64748B;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .step-pill.active {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 4px 10px rgba(33,150,243,0.35);
+        }
+
+        /* LESSON SCREEN */
+        #lesson-screen {
+            display: none;
+            width: 100%;
+            max-width: 650px;
+            background: white;
+            border-radius: 25px;
+            padding: 16px 14px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            border: 4px solid #BBDEFB;
+            text-align: center;
+        }
+
+        .vocab-progress-tag {
+            display: inline-block;
+            background: #FFF3E0;
+            color: #E65100;
+            padding: 4px 14px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            border: 1px solid #FFE0B2;
+        }
+
+        /* KHUNG MINH HỌA LỚN (BƯỚC 0) */
+        .visual-hero-box {
+            width: 100%;
+            height: 220px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%);
+            border: 4px solid #0284C7;
+            box-shadow: 0 8px 22px rgba(2, 132, 199, 0.25);
+            margin: 6px auto 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 100px;
+            animation: bounceSlow 2s infinite alternate;
+        }
+        @keyframes bounceSlow {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
+        }
+
+        /* KHUNG MINH HỌA NHỎ (BƯỚC 1, 2, 3, 5) */
+        .visual-thumb-box {
+            width: 130px;
+            height: 130px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #E0F2FE 0%, #BAE6FD 100%);
+            margin: 6px auto 10px;
+            border: 4px solid #38BDF8;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 65px;
+        }
+
+        .word-title { font-size: 38px; color: #E91E63; font-weight: bold; margin: 4px 0 12px; }
+
+        .video-subtitle {
+            background: #F0F9FF;
+            border: 3px solid #0284C7;
+            border-radius: 16px;
+            padding: 10px 16px;
+            font-size: 21px;
+            font-weight: bold;
+            color: #0369A1;
+            margin: 8px auto 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+        }
+
+        .video-ctrl-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        /* BUTTONS */
+        .btn-large {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            color: white;
+            margin: 4px;
+            box-shadow: 0 4px rgba(0,0,0,0.15);
+            transition: 0.1s;
+        }
+        .btn-large:active { transform: translateY(3px); box-shadow: none; }
+        .btn-audio { background: var(--secondary); }
+        .btn-next { background: var(--accent); }
+
+        /* NÚT BẤM VÀ GIỮ ĐỂ ĐỌC (PUSH-TO-TALK) */
+        .btn-mic-hold {
+            background: #4CAF50;
+            color: white;
+            min-width: 270px;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 10px auto;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px #2E7D32;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
+            transition: all 0.15s ease;
+        }
+        .btn-mic-hold:active, .btn-mic-hold.listening {
+            background: #FF1744;
+            box-shadow: 0 6px #C2185B, 0 0 25px rgba(255,23,68,0.7);
+            transform: scale(1.05);
+            animation: pulse 0.8s infinite alternate;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1.02); }
+            100% { transform: scale(1.08); }
+        }
+
+        .feedback-text {
+            font-size: 18px;
+            min-height: 28px;
+            margin: 10px 0 12px;
+            font-weight: bold;
+        }
+        .feedback-success { color: #2E7D32; }
+        .feedback-warn { color: #D84315; }
+
+        /* SENTENCE CARDS IN STEP 3 */
+        .sentence-card {
+            background: #F8FAFC;
+            border: 2px solid #E2E8F0;
+            border-radius: 16px;
+            padding: 10px 14px;
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: left;
+            transition: 0.2s;
+        }
+        .sentence-card:hover {
+            border-color: var(--accent);
+            background: #F0F7FF;
+        }
+        .sentence-text {
+            font-size: 19px;
+            font-weight: bold;
+            color: #1E3A8A;
+            flex-grow: 1;
+            padding-right: 8px;
+        }
+        .sentence-badge {
+            background: #DBEAFE;
+            color: #1D4ED8;
+            border-radius: 10px;
+            padding: 3px 8px;
+            font-size: 12px;
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        /* WORD SCRAMBLE GAME (STEP 4) */
+        .scramble-progress-tag {
+            font-size: 15px;
+            color: #555;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .scramble-box {
+            min-height: 65px;
+            border: 3px dashed #90CAF9;
+            border-radius: 16px;
+            padding: 8px;
+            margin: 10px 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            background: #F8FAFC;
+        }
+        .word-bank {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin: 12px 0;
+        }
+        .word-tile {
+            background: #FFF;
+            border: 3px solid var(--accent);
+            color: #1976D2;
+            padding: 8px 14px;
+            font-size: 19px;
+            font-weight: bold;
+            border-radius: 14px;
+            cursor: pointer;
+            box-shadow: 0 4px #BBDEFB;
+            transition: 0.15s;
+        }
+        .word-tile:hover { transform: scale(1.05); }
+        .word-tile.placed {
+            background: #E8F5E9;
+            border-color: var(--secondary);
+            color: #2E7D32;
+            box-shadow: 0 4px #C8E6C9;
+        }
+
+        /* THỬ THÁCH ĐIỀN CHỮ CÒN THIẾU (STEP 5) */
+        .missing-word-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin: 18px 0;
+            flex-wrap: wrap;
+        }
+        .char-tile {
+            min-width: 48px;
+            height: 58px;
+            padding: 0 6px;
+            background: #FFF;
+            border: 3px solid #1E88E5;
+            border-radius: 14px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            font-weight: bold;
+            color: #0D47A1;
+            box-shadow: 0 4px #BBDEFB;
+        }
+        .char-tile.blank-tile {
+            background: #FFF9C4;
+            border: 3px dashed #F57F17;
+            color: #E65100;
+            animation: bounceSlow 1s infinite alternate;
+        }
+        .char-tile.filled-correct {
+            background: #E8F5E9;
+            border-color: #4CAF50;
+            color: #2E7D32;
+            box-shadow: 0 4px #C8E6C9;
+        }
+        .letter-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .btn-letter-choice {
+            width: 65px;
+            height: 65px;
+            border-radius: 18px;
+            border: 3px solid #FF9800;
+            background: #FFF;
+            color: #E65100;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px #FFE0B2;
+            transition: all 0.15s ease;
+        }
+        .btn-letter-choice:hover {
+            transform: translateY(-3px) scale(1.08);
+            background: #FFF3E0;
+        }
+        .btn-letter-choice:active {
+            transform: translateY(3px);
+            box-shadow: none;
+        }
+        .btn-letter-choice.wrong {
+            border-color: #F44336;
+            background: #FFEBEE;
+            color: #C62828;
+            box-shadow: 0 4px #FFCDD2;
+        }
+
+        /* BẢNG TỔNG KẾT ĐIỂM SỐ KHI HỌC XONG UNIT */
+        .summary-card {
+            background: linear-gradient(135deg, #FFFDE7 0%, #FFF9C4 100%);
+            border: 4px solid #FBC02D;
+            border-radius: 25px;
+            padding: 24px 18px;
+            box-shadow: 0 10px 25px rgba(251, 192, 45, 0.3);
+            text-align: center;
+        }
+        .summary-trophy { font-size: 75px; }
+        .summary-title { font-size: 26px; color: #E65100; font-weight: bold; margin: 8px 0 4px; }
+        .summary-stars { font-size: 34px; letter-spacing: 4px; margin: 6px 0 16px; }
+        .stats-grid {
+            background: white;
+            border-radius: 18px;
+            padding: 14px;
+            margin: 14px 0 20px;
+            border: 2px dashed #FBC02D;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            text-align: left;
+        }
+        .stat-item {
+            background: #FFFBEB;
+            padding: 10px 12px;
+            border-radius: 14px;
+            border-left: 4px solid #F59E0B;
+        }
+        .stat-label { font-size: 13px; color: #666; margin-bottom: 3px; }
+        .stat-value { font-size: 19px; font-weight: bold; color: #1E3A8A; }
+
+        /* MODAL RESUME */
+        #resume-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-card {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            text-align: center;
+            border: 5px solid var(--primary);
+            max-width: 420px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <button class="btn-header" onclick="goHome()">🏠 HOME</button>
+        <div id="header-title">Tiếng Anh Lớp 2 - Global Success</div>
+        <div class="header-score-badge">⭐ <span id="header-score">0</span> đ</div>
+        <button class="btn-header btn-video-nav" id="btn-re-video" style="display: none; margin-left: 6px;" onclick="showUnitVideoScreen()">🎬 Xem Ngữ Cảnh</button>
+    </header>
+
+    <div id="app-container">
+        <!-- TRANG CHỦ -->
+        <div id="home-screen"></div>
+
+        <!-- MÀN HÌNH BÀI HỌC -->
+        <div id="lesson-screen">
+            <div id="unit-vocab-indicator" class="vocab-progress-tag"></div>
+            <div class="step-indicator" id="step-pills-bar">
+                <div class="step-pill" id="pill-1" onclick="goToStep(1)">1. 🎧 Nghe từ</div>
+                <div class="step-pill" id="pill-2" onclick="goToStep(2)">2. 🎤 Luyện đọc</div>
+                <div class="step-pill" id="pill-3" onclick="goToStep(3)">3. 💬 Nghe câu</div>
+                <div class="step-pill" id="pill-4" onclick="goToStep(4)">4. 🧩 Xếp câu</div>
+                <div class="step-pill" id="pill-5" onclick="goToStep(5)">5. 🔤 Điền chữ</div>
+            </div>
+
+            <div id="step-content"></div>
+        </div>
+    </div>
+
+    <!-- POPUP HỌC TIẾP -->
+    <div id="resume-modal">
+        <div class="modal-card">
+            <div style="font-size: 50px;">🌟</div>
+            <h2 style="color: #E91E63; margin: 10px 0;">Chào bé!</h2>
+            <p style="font-size: 19px;">Lần trước bé đang học <b id="resume-unit-name"></b>.<br>Bé muốn học tiếp không nào?</p>
+            <button class="btn-large" style="background: var(--secondary);" onclick="resumeLesson()">Học tiếp 🚀</button>
+            <button class="btn-large" style="background: #9E9E9E;" onclick="closeResumeModal()">Về nhà 🏠</button>
+        </div>
+    </div>
+
+    <script>
+        // DỮ LIỆU ĐẦY ĐỦ 16 UNIT (CHUẨN SGK TIẾNG ANH 2 GLOBAL SUCCESS)
+        const lessonsData = {
+            1: {
+                id: 1, title: "Unit 1: At my birthday party", icon: "🎂", phonics: "p",
+                vocab: [
+                    { word: "popcorn", icon: "🍿", sentences: ["I like popcorn", "The popcorn is yummy", "Pass me the popcorn please"] },
+                    { word: "pasta", icon: "🍝", sentences: ["I like pasta", "The pasta is yummy", "Pass me the pasta please"] },
+                    { word: "pizza", icon: "🍕", sentences: ["I like pizza", "The pizza is yummy", "Pass me the pizza please"] }
+                ]
+            },
+            2: {
+                id: 2, title: "Unit 2: In the backyard", icon: "🏡", phonics: "k",
+                vocab: [
+                    { word: "kite", icon: "🪁", sentences: ["He is flying a kite", "Is he flying a kite", "Look at the colorful kite"] },
+                    { word: "bike", icon: "🚲", sentences: ["He is riding a bike", "She is riding a bike", "Is he riding a bike"] },
+                    { word: "kitten", icon: "🐱", sentences: ["She is playing with a kitten", "Look at the cute kitten", "Is she playing with a kitten"] }
+                ]
+            },
+            3: {
+                id: 3, title: "Unit 3: At the seaside", icon: "🌊", phonics: "s",
+                vocab: [
+                    { word: "sea", icon: "🌊", sentences: ["Let's look at the sea", "We are at the seaside", "The sea is blue and big"] },
+                    { word: "sail", icon: "⛵", sentences: ["Let's look at the sail", "The sail is on the water", "I can see the white sail"] },
+                    { word: "sand", icon: "🏖️", sentences: ["Let's look at the sand", "Let's play in the sand", "The sand is warm and yellow"] }
+                ]
+            },
+            4: {
+                id: 4, title: "Unit 4: In the countryside", icon: "🌄", phonics: "r",
+                vocab: [
+                    { word: "rainbow", icon: "🌈", sentences: ["There is a rainbow", "Look at the rainbow", "The rainbow is in the sky"] },
+                    { word: "river", icon: "🏞️", sentences: ["There is a river", "The river is very long", "Let's look at the river"] },
+                    { word: "road", icon: "🛣️", sentences: ["There is a road", "Look at the country road", "She is on the road"] }
+                ]
+            },
+            5: {
+                id: 5, title: "Unit 5: In the classroom", icon: "🏫", phonics: "q",
+                vocab: [
+                    { word: "quiz", icon: "📝", sentences: ["He is doing a quiz", "She is doing a quiz", "Let's do a fun quiz"] },
+                    { word: "square", icon: "🟦", sentences: ["She is colouring a square", "He is colouring a square", "This is a blue square"] },
+                    { word: "question", icon: "❓", sentences: ["She is answering a question", "He is asking a question", "I have a good question"] }
+                ]
+            },
+            6: {
+                id: 6, title: "Unit 6: On the farm", icon: "🐄", phonics: "x",
+                vocab: [
+                    { word: "box", icon: "📦", sentences: ["There is a box", "The box is on the grass", "Look at the wooden box"] },
+                    { word: "fox", icon: "🦊", sentences: ["There is a fox", "Is there a fox", "The fox is near the tree"] },
+                    { word: "ox", icon: "🐂", sentences: ["There is an ox", "Is there an ox", "The ox is on the farm"] }
+                ]
+            },
+            7: {
+                id: 7, title: "Unit 7: In the kitchen", icon: "🍳", phonics: "j",
+                vocab: [
+                    { word: "juice", icon: "🧃", sentences: ["Pass me the juice please", "I like orange juice", "The juice is very fresh"] },
+                    { word: "jelly", icon: "🍮", sentences: ["Pass me the jelly please", "I like sweet jelly", "The jelly is yummy"] },
+                    { word: "jam", icon: "🍓", sentences: ["Pass me the jam please", "The jam is on the bread", "I like strawberry jam"] }
+                ]
+            },
+            8: {
+                id: 8, title: "Unit 8: In the village", icon: "🏘️", phonics: "v",
+                vocab: [
+                    { word: "village", icon: "🏡", sentences: ["Can you draw a village", "This is a beautiful village", "Yes I can draw a village"] },
+                    { word: "van", icon: "🚐", sentences: ["Can you draw a van", "This is a yellow van", "I can draw a small van"] },
+                    { word: "volleyball", icon: "🏐", sentences: ["Can you draw a volleyball", "Let's play volleyball", "This is a new volleyball"] }
+                ]
+            },
+            9: {
+                id: 9, title: "Unit 9: In the grocery store", icon: "🛒", phonics: "y",
+                vocab: [
+                    { word: "yogurt", icon: "🥛", sentences: ["I want some yogurt", "Mum wants some yogurt", "The yogurt is yummy"] },
+                    { word: "yams", icon: "🥔", sentences: ["I want some yams", "Mum wants some yams", "Look at the fresh yams"] },
+                    { word: "yo-yos", icon: "🪀", sentences: ["I want some yo-yos", "Look at the colorful yo-yos", "I have two new yo-yos"] }
+                ]
+            },
+            10: {
+                id: 10, title: "Unit 10: At the zoo", icon: "🦁", phonics: "z",
+                vocab: [
+                    { word: "zoo", icon: "🦁", sentences: ["Do you like the zoo", "We are at the zoo", "There are animals at the zoo"] },
+                    { word: "zebu", icon: "🐃", sentences: ["Do you like the zebu", "That is a big zebu", "Look at the strange zebu"] },
+                    { word: "zebra", icon: "🦓", sentences: ["Do you like the zebra", "That is a fast zebra", "The zebra has black stripes"] }
+                ]
+            },
+            11: {
+                id: 11, title: "Unit 11: In the playground", icon: "🛝", phonics: "i",
+                vocab: [
+                    { word: "sliding", icon: "🛝", sentences: ["They are sliding", "He is sliding happily", "We like sliding together"] },
+                    { word: "riding", icon: "🚴", sentences: ["They are riding bikes", "She is riding a bike", "He is riding his bike"] },
+                    { word: "driving", icon: "🚗", sentences: ["They are driving cars", "He is driving a red car", "She is driving a car"] }
+                ]
+            },
+            12: {
+                id: 12, title: "Unit 12: At the café", icon: "☕", phonics: "a",
+                vocab: [
+                    { word: "grapes", icon: "🍇", sentences: ["The grapes are on the table", "We are having sweet grapes", "I like fresh purple grapes"] },
+                    { word: "cake", icon: "🍰", sentences: ["The cake is on the table", "We are having delicious cake", "The cake is very sweet"] },
+                    { word: "table", icon: "🪑", sentences: ["The cake is on the table", "The grapes are on the table", "Please sit at the table"] }
+                ]
+            },
+            13: {
+                id: 13, title: "Unit 13: In the maths class", icon: "🔢", phonics: "n",
+                vocab: [
+                    { word: "eleven", icon: "1️⃣1️⃣", sentences: ["What number is it", "It is eleven", "I have eleven pencils"] },
+                    { word: "thirteen", icon: "1️⃣3️⃣", sentences: ["What number is it", "It is thirteen", "I can see thirteen books"] },
+                    { word: "fourteen", icon: "1️⃣4️⃣", sentences: ["What number is it", "It is fourteen", "She has fourteen pens"] },
+                    { word: "fifteen", icon: "1️⃣5️⃣", sentences: ["What number is it", "It is fifteen", "There are fifteen apples"] }
+                ]
+            },
+            14: {
+                id: 14, title: "Unit 14: At home", icon: "🏠", phonics: "er",
+                vocab: [
+                    { word: "brother", icon: "👦", sentences: ["He is my brother", "How old is your brother", "My brother is nineteen"] },
+                    { word: "sister", icon: "👧", sentences: ["She is my sister", "How old is your sister", "My sister is sixteen"] },
+                    { word: "grandmother", icon: "👵", sentences: ["This is my grandmother", "I love my grandmother", "My grandmother is here"] }
+                ]
+            },
+            15: {
+                id: 15, title: "Unit 15: In the clothes shop", icon: "👕", phonics: "sh",
+                vocab: [
+                    { word: "shirts", icon: "👔", sentences: ["Where are the shirts", "The shirts are over there", "I want some blue shirts"] },
+                    { word: "shoes", icon: "👞", sentences: ["Where are the shoes", "The shoes are over there", "I like these new shoes"] },
+                    { word: "shorts", icon: "🩳", sentences: ["Where are the shorts", "The shorts are over there", "I want some new shorts"] }
+                ]
+            },
+            16: {
+                id: 16, title: "Unit 16: At the campsite", icon: "⛺", phonics: "t",
+                vocab: [
+                    { word: "tent", icon: "⛺", sentences: ["The tent is near the fence", "Look at the green tent", "We sleep in the tent"] },
+                    { word: "teapot", icon: "🫖", sentences: ["The teapot is on the table", "Is the teapot on the table", "Look at the small teapot"] },
+                    { word: "blanket", icon: "🛌", sentences: ["The blanket is in the tent", "The warm blanket is soft", "Is the blanket in the tent"] }
+                ]
+            }
+        };
+
+        // BIẾN QUẢN LÝ TRẠNG THÁI
+        let currentUnitId = null;
+        let currentVocabIdx = 0;
+        let currentSentenceIdx = 0;
+        let currentStep = 0;
+        let recognition = null;
+        let selectedScrambleWords = [];
+
+        // HỆ THỐNG ĐIỂM SỐ & THỐNG KÊ CHI TIẾT
+        let unitScore = 0;
+        let statReadCorrect = 0;
+        let statScrambleCorrect = 0;
+        let statLetterCorrect = 0;
+
+        // Xem ngữ cảnh (Step 0)
+        let videoSceneIdx = 0;
+        let videoIsAutoPlaying = false;
+        let videoTimer = null;
+
+        // Push-to-Talk & Chấm điểm
+        let isHolding = false;
+        let recognitionActive = false;
+        let currentSpokenText = "";
+        let hasEvaluated = false;
+
+        window.onload = function() {
+            renderHomeScreen();
+            checkResume();
+            initSpeechRecognition();
+        };
+
+        function renderHomeScreen() {
+            const container = document.getElementById('home-screen');
+            container.innerHTML = '';
+            for (let id in lessonsData) {
+                const u = lessonsData[id];
+                const card = document.createElement('div');
+                card.className = 'unit-card';
+                card.innerHTML = `
+                    <div class="u-icon">${u.icon}</div>
+                    <h3>${u.title}</h3>
+                    <div class="u-phonics">🎯 Hình ảnh sinh động • Âm /${u.phonics}/ • ${u.vocab.length} từ</div>
+                `;
+                card.onclick = () => startUnit(u.id, 0, 0, 0);
+                container.appendChild(card);
+            }
+        }
+
+        function checkResume() {
+            const u = localStorage.getItem('last_unit_g2');
+            if (u && lessonsData[u]) {
+                document.getElementById('resume-unit-name').innerText = lessonsData[u].title;
+                document.getElementById('resume-modal').style.display = 'flex';
+            }
+        }
+
+        function resumeLesson() {
+            const u = parseInt(localStorage.getItem('last_unit_g2'));
+            const v = parseInt(localStorage.getItem('last_vidx_g2')) || 0;
+            const s = parseInt(localStorage.getItem('last_step_g2')) || 1;
+            const sentIdx = parseInt(localStorage.getItem('last_sent_g2')) || 0;
+            document.getElementById('resume-modal').style.display = 'none';
+            startUnit(u, v, s, sentIdx);
+        }
+
+        function closeResumeModal() {
+            document.getElementById('resume-modal').style.display = 'none';
+            localStorage.clear();
+        }
+
+        function saveProgress() {
+            if (currentUnitId) {
+                localStorage.setItem('last_unit_g2', currentUnitId);
+                localStorage.setItem('last_vidx_g2', currentVocabIdx);
+                localStorage.setItem('last_step_g2', currentStep);
+                localStorage.setItem('last_sent_g2', currentSentenceIdx);
+            }
+        }
+
+        function updateHeaderScore() {
+            const scoreEl = document.getElementById('header-score');
+            if (scoreEl) scoreEl.innerText = unitScore;
+        }
+
+        function addScore(points) {
+            unitScore += points;
+            updateHeaderScore();
+        }
+
+        function goHome() {
+            stopVideoAuto();
+            saveProgress();
+            stopRecognitionHard();
+            document.getElementById('lesson-screen').style.display = 'none';
+            document.getElementById('home-screen').style.display = 'grid';
+            document.getElementById('header-title').innerText = "Tiếng Anh Lớp 2 - Global Success";
+            document.getElementById('btn-re-video').style.display = 'none';
+            currentUnitId = null;
+        }
+
+        function startUnit(unitId, vocabIdx = 0, step = 0, sentIdx = 0) {
+            currentUnitId = unitId;
+            currentVocabIdx = vocabIdx;
+            currentStep = step;
+            currentSentenceIdx = sentIdx;
+            videoSceneIdx = 0;
+            videoIsAutoPlaying = false;
+
+            if (vocabIdx === 0 && (step === 0 || step === 1)) {
+                unitScore = 0;
+                statReadCorrect = 0;
+                statScrambleCorrect = 0;
+                statLetterCorrect = 0;
+                updateHeaderScore();
+            }
+
+            document.getElementById('home-screen').style.display = 'none';
+            document.getElementById('lesson-screen').style.display = 'block';
+            document.getElementById('header-title').innerText = lessonsData[unitId].title;
+            document.getElementById('btn-re-video').style.display = 'inline-block';
+
+            renderCurrentStep();
+            saveProgress();
+        }
+
+        function showUnitVideoScreen() {
+            currentStep = 0;
+            videoSceneIdx = 0;
+            renderCurrentStep();
+            saveProgress();
+        }
+
+        function updateStepPills() {
+            const pillsBar = document.getElementById('step-pills-bar');
+            const vocabIndicator = document.getElementById('unit-vocab-indicator');
+
+            if (currentStep === 0 || currentStep === 6) {
+                pillsBar.style.display = 'none';
+                vocabIndicator.style.display = 'none';
+                return;
+            }
+
+            pillsBar.style.display = 'flex';
+            vocabIndicator.style.display = 'inline-block';
+
+            for (let i = 1; i <= 5; i++) {
+                const pill = document.getElementById('pill-' + i);
+                if (i === currentStep) pill.classList.add('active');
+                else pill.classList.remove('active');
+            }
+            const unit = lessonsData[currentUnitId];
+            vocabIndicator.innerText = 
+                `📖 Từ vựng ${currentVocabIdx + 1} / ${unit.vocab.length}: "${unit.vocab[currentVocabIdx].word.toUpperCase()}"`;
+        }
+
+        // ==========================================
+        // BƯỚC 0: HIỂN THỊ HÌNH ẢNH BIỂU TƯỢNG LỚN (ĐẢM BẢO 100% HIỂN THỊ TRÊN MỌI TRÌNH DUYỆT)
+        // ==========================================
+        function renderVideoScreen() {
+            const unit = lessonsData[currentUnitId];
+            const content = document.getElementById('step-content');
+            const totalScenes = unit.vocab.length;
+            const currentItem = unit.vocab[videoSceneIdx];
+            const currentSentence = currentItem.sentences[0];
+
+            content.innerHTML = `
+                <!-- KHUNG HIỂN THỊ HÌNH ẢNH TO RÕ, ĐẢM BẢO HIỂN THỊ TRỰC TIẾP TRÊN MỌI TRÌNH DUYỆT ĐIỆN THOẠI -->
+                <div class="visual-hero-box">
+                    ${currentItem.icon}
+                </div>
+
+                <!-- PHỤ ĐỀ CÂU MINH HỌA -->
+                <div class="video-subtitle">
+                    "${highlightWord(currentSentence, currentItem.word)}"
+                </div>
+
+                <!-- THANH ĐIỀU KHIỂN GỌN GÀNG -->
+                <div class="video-ctrl-bar">
+                    <button class="btn-large btn-audio" onclick="speakVideoSentence('${currentSentence}')">
+                        🔊 Nghe
+                    </button>
+                    <button class="btn-large" id="btn-auto-play" style="background: ${videoIsAutoPlaying ? '#E11D48' : '#7C3AED'};" onclick="toggleVideoAutoPlay()">
+                        ${videoIsAutoPlaying ? '⏸️ Dừng' : '▶️ Tự chiếu'}
+                    </button>
+                    <button class="btn-large" style="background: #0284C7;" onclick="nextVideoScene()">
+                        Cảnh tiếp (${videoSceneIdx + 1}/${totalScenes}) ⏩
+                    </button>
+                    <button class="btn-large" style="background: #E91E63;" onclick="startVocabLearning()">
+                        Vào học bài 🚀
+                    </button>
+                </div>
+            `;
+
+            speakVideoSentence(currentSentence);
+        }
+
+        function speakVideoSentence(sentence) {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(sentence);
+            u.lang = 'en-US';
+            u.rate = 0.8;
+            window.speechSynthesis.speak(u);
+
+            u.onend = () => {
+                if (videoIsAutoPlaying) {
+                    videoTimer = setTimeout(() => {
+                        nextVideoScene();
+                    }, 2200);
+                }
+            };
+        }
+
+        function toggleVideoAutoPlay() {
+            videoIsAutoPlaying = !videoIsAutoPlaying;
+            if (videoIsAutoPlaying) {
+                const unit = lessonsData[currentUnitId];
+                const currentItem = unit.vocab[videoSceneIdx];
+                speakVideoSentence(currentItem.sentences[0]);
+            } else {
+                stopVideoAuto();
+            }
+            renderVideoScreen();
+        }
+
+        function stopVideoAuto() {
+            videoIsAutoPlaying = false;
+            if (videoTimer) {
+                clearTimeout(videoTimer);
+                videoTimer = null;
+            }
+        }
+
+        function nextVideoScene() {
+            const unit = lessonsData[currentUnitId];
+            if (videoSceneIdx < unit.vocab.length - 1) {
+                videoSceneIdx++;
+                renderVideoScreen();
+            } else {
+                stopVideoAuto();
+                playDingSound();
+                startVocabLearning();
+            }
+        }
+
+        function renderCurrentStep() {
+            stopRecognitionHard();
+            updateStepPills();
+            const unit = lessonsData[currentUnitId];
+            const content = document.getElementById('step-content');
+
+            if (currentStep === 0) {
+                renderVideoScreen();
+                return;
+            }
+
+            if (currentStep === 6) {
+                renderUnitSummary();
+                return;
+            }
+
+            const item = unit.vocab[currentVocabIdx];
+
+            if (currentStep === 1) {
+                // BƯỚC 1: NGHE PHÁT ÂM
+                content.innerHTML = `
+                    <div class="visual-thumb-box">
+                        ${item.icon}
+                    </div>
+                    <div class="word-title">${item.word}</div>
+                    <p style="font-size: 18px; color: #555;">Bé hãy bấm nghe và lặp lại theo cô nhé!</p>
+                    <button class="btn-large btn-audio" onclick="speakText('${item.word}')">🔊 Nghe phát âm từ</button>
+                    <br>
+                    <button class="btn-large btn-next" onclick="goToStep(2)">Sang Luyện Đọc 🎤 ➡️</button>
+                `;
+                speakText(item.word);
+            } 
+            else if (currentStep === 2) {
+                // BƯỚC 2: LUYỆN ĐỌC (ĐÃ XÓA SẠCH 2 DÒNG TRÙNG LẶP, CỰC KỲ GỌN GÀNG)
+                content.innerHTML = `
+                    <div class="visual-thumb-box">
+                        ${item.icon}
+                    </div>
+                    <div class="word-title">${item.word}</div>
+                    
+                    <button class="btn-mic-hold" id="mic-btn">
+                        <span id="mic-icon">🎙️</span>
+                        <span id="mic-text">BẤM VÀ GIỮ ĐỂ ĐỌC</span>
+                    </button>
+                    
+                    <div class="feedback-text" id="feedback">Sẵn sàng! Bé hãy bấm giữ nút và đọc nhé!</div>
+
+                    <div style="margin-top: 15px;">
+                        <button class="btn-large btn-audio" style="font-size: 15px; padding: 10px 18px;" onclick="speakText('${item.word}')">🔊 Nghe phát âm mẫu</button>
+                        <button class="btn-large" style="background: #90A4AE; font-size: 15px; padding: 10px 18px;" onclick="goToStep(3)">Bé đã đọc xong (Bỏ qua) ⏩</button>
+                    </div>
+                `;
+                setupMicHoldEvents();
+            } 
+            else if (currentStep === 3) {
+                // BƯỚC 3: NGHE CÂU
+                let sentencesHtml = item.sentences.map((sent, idx) => `
+                    <div class="sentence-card">
+                        <span class="sentence-badge">Mẫu ${idx + 1}</span>
+                        <div class="sentence-text">${highlightWord(sent, item.word)}</div>
+                        <button class="btn-large btn-audio" style="font-size: 14px; padding: 8px 16px; margin: 0;" onclick="speakText('${sent}')">🔊 Nghe</button>
+                    </div>
+                `).join('');
+
+                content.innerHTML = `
+                    <div class="visual-thumb-box" style="width: 100px; height: 100px; font-size: 50px;">
+                        ${item.icon}
+                    </div>
+                    <p style="font-size: 18px; color: #555; margin-bottom: 12px;">3 câu bài học của từ <b>"${item.word}"</b>:</p>
+                    <div style="margin-bottom: 20px;">${sentencesHtml}</div>
+                    <button class="btn-large btn-next" onclick="currentSentenceIdx = 0; goToStep(4)">Thử thách xếp câu 🧩 ➡️</button>
+                `;
+                if (item.sentences.length > 0) {
+                    speakText(item.sentences[0]);
+                }
+            } 
+            else if (currentStep === 4) {
+                // BƯỚC 4: SẮP XẾP CÂU
+                initScrambleGame();
+            }
+            else if (currentStep === 5) {
+                // BƯỚC 5: ĐỐ VUI ĐIỀN CHỮ
+                initMissingLetterGame();
+            }
+        }
+
+        function startVocabLearning() {
+            stopVideoAuto();
+            currentStep = 1;
+            renderCurrentStep();
+            saveProgress();
+        }
+
+        function highlightWord(sentence, word) {
+            const regex = new RegExp(`(${word})`, 'gi');
+            return sentence.replace(regex, `<span style="color: #E91E63; text-decoration: underline;">$1</span>`);
+        }
+
+        function goToStep(step) {
+            stopVideoAuto();
+            currentStep = step;
+            renderCurrentStep();
+            saveProgress();
+        }
+
+        function speakText(text) {
+            window.speechSynthesis.cancel();
+            const u = new SpeechSynthesisUtterance(text);
+            u.lang = 'en-US';
+            u.rate = 0.8;
+            window.speechSynthesis.speak(u);
+        }
+
+        // ==========================================
+        // KHỞI TẠO & XỬ LÝ MICRO (PUSH-TO-TALK)
+        // ==========================================
+        function initSpeechRecognition() {
+            const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (SpeechRec) {
+                recognition = new SpeechRec();
+                recognition.lang = 'en-US';
+                recognition.continuous = true;
+                recognition.interimResults = true;
+
+                recognition.onresult = function(event) {
+                    for (let i = event.resultIndex; i < event.results.length; ++i) {
+                        const transcript = event.results[i][0].transcript;
+                        if (transcript) {
+                            currentSpokenText += " " + transcript;
+                        }
+                    }
+                };
+
+                recognition.onend = function() {
+                    recognitionActive = false;
+                    if (!isHolding) triggerEvaluation();
+                };
+
+                recognition.onerror = function() {
+                    recognitionActive = false;
+                };
+            }
+        }
+
+        function stopRecognitionHard() {
+            isHolding = false;
+            recognitionActive = false;
+            if (recognition) {
+                try { recognition.stop(); } catch(e){}
+            }
+        }
+
+        function setupMicHoldEvents() {
+            const micBtn = document.getElementById('mic-btn');
+            if (!micBtn) return;
+
+            micBtn.onmousedown = handleHoldStart;
+            micBtn.onmouseup = handleHoldEnd;
+            micBtn.onmouseleave = handleHoldEnd;
+
+            micBtn.ontouchstart = handleHoldStart;
+            micBtn.ontouchend = handleHoldEnd;
+            micBtn.ontouchcancel = handleHoldEnd;
+            micBtn.oncontextmenu = (e) => { e.preventDefault(); return false; };
+        }
+
+        function handleHoldStart(e) {
+            if (e && e.type === 'touchstart') e.preventDefault();
+            if (isHolding) return;
+
+            if (!recognition) {
+                alert("Trình duyệt chưa hỗ trợ hoặc chưa cấp quyền Micro.");
+                return;
+            }
+
+            isHolding = true;
+            hasEvaluated = false;
+            currentSpokenText = "";
+
+            const micBtn = document.getElementById('mic-btn');
+            const micIcon = document.getElementById('mic-icon');
+            const micText = document.getElementById('mic-text');
+            const fb = document.getElementById('feedback');
+
+            if (micBtn) micBtn.classList.add('listening');
+            if (micIcon) micIcon.innerText = "🔴";
+            if (micText) micText.innerText = "ĐANG LẮNG NGHE... (BÉ ĐỌC ĐI)";
+
+            if (fb) {
+                fb.innerText = "Bé giữ nút và đọc to lên nhé, cô đang lắng nghe...";
+                fb.className = "feedback-text";
+            }
+
+            try {
+                recognition.start();
+                recognitionActive = true;
+            } catch (err) {}
+        }
+
+        function handleHoldEnd(e) {
+            if (!isHolding) return;
+            isHolding = false;
+
+            const micBtn = document.getElementById('mic-btn');
+            const micIcon = document.getElementById('mic-icon');
+            const micText = document.getElementById('mic-text');
+            const fb = document.getElementById('feedback');
+
+            if (micBtn) micBtn.classList.remove('listening');
+            if (micIcon) micIcon.innerText = "🎙️";
+            if (micText) micText.innerText = "BẤM VÀ GIỮ ĐỂ ĐỌC";
+
+            if (fb) fb.innerText = "⏳ Đang kiểm tra giọng đọc của bé...";
+
+            if (recognition && recognitionActive) {
+                try { recognition.stop(); } catch(err) {}
+            }
+
+            setTimeout(() => { triggerEvaluation(); }, 550);
+        }
+
+        function triggerEvaluation() {
+            if (hasEvaluated || currentStep !== 2) return;
+            hasEvaluated = true;
+            recognitionActive = false;
+
+            const unit = lessonsData[currentUnitId];
+            if (!unit) return;
+            const targetWord = unit.vocab[currentVocabIdx].word;
+            evaluateReadingVoice(currentSpokenText, targetWord);
+        }
+
+        function evaluateReadingVoice(spoken, targetWord) {
+            const fb = document.getElementById('feedback');
+            if (!fb) return;
+
+            const cleanSpoken = spoken.trim();
+            if (!cleanSpoken) {
+                fb.innerHTML = `Chưa nghe rõ giọng bé, bé bấm giữ nút và đọc to lại nhé!`;
+                fb.className = "feedback-text feedback-warn";
+                return;
+            }
+
+            const isPassed = checkReadingMatch(cleanSpoken, targetWord);
+
+            if (isPassed) {
+                playDingSound();
+                addScore(10);
+                statReadCorrect++;
+                fb.innerHTML = `🎉 <b>GIỎI QUÁ! (+10đ)</b> Bé phát âm rất tốt từ: <b>"${targetWord}"</b>!`;
+                fb.className = "feedback-text feedback-success";
+                setTimeout(() => goToStep(3), 1600);
+            } else {
+                fb.innerHTML = `Bé vừa nói: "<i>${cleanSpoken}</i>" - Gần đúng rồi, bé bấm giữ nút đọc lại lần nữa nhé!`;
+                fb.className = "feedback-text feedback-warn";
+            }
+        }
+
+        function checkReadingMatch(spoken, target) {
+            let s = spoken.toLowerCase().trim();
+            let t = target.toLowerCase().trim();
+
+            const numberMap = {
+                "11": "eleven", "13": "thirteen", "14": "fourteen", "15": "fifteen",
+                "1": "one", "2": "two", "3": "three", "4": "four", "5": "five",
+                "6": "six", "7": "seven", "8": "eight", "9": "nine", "10": "ten",
+                "12": "twelve", "16": "sixteen", "17": "seventeen", "18": "eighteen",
+                "19": "nineteen", "20": "twenty"
+            };
+            for (let num in numberMap) {
+                s = s.replace(new RegExp(`\\b${num}\\b`, 'g'), numberMap[num]);
+            }
+
+            s = s.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'’]/g, " ").replace(/\s+/g, " ").trim();
+            t = t.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"'’]/g, " ").replace(/\s+/g, " ").trim();
+
+            const fillerRegex = /\b(dạ|thưa|ạ|con|là|cô|thầy|ơi|a|an|the|um|uh|oh)\b/gi;
+            s = s.replace(fillerRegex, " ").replace(/\s+/g, " ").trim();
+
+            const specialAliases = {
+                "zebu": ["zebu", "zebo", "ze bu", "ze bo", "zebra", "sea boo", "bull", "cow", "zibu"],
+                "ox": ["ox", "fox", "box", "axe", "ocks", "oc", "ock", "hot"],
+                "yo-yos": ["yoyo", "yo yo", "yo-yo", "yoyos", "yo yos", "yo"],
+                "yams": ["yam", "yams", "young", "jam"],
+                "popcorn": ["popcorn", "pop corn", "pop", "corn"],
+                "pasta": ["pasta", "pastor", "paste", "pass"],
+                "sliding": ["sliding", "slide", "slid"],
+                "riding": ["riding", "ride"],
+                "driving": ["driving", "drive"],
+                "shirts": ["shirt", "shirts", "short", "shorts"],
+                "shoes": ["shoe", "shoes", "su"],
+                "shorts": ["short", "shorts", "shirt", "shirts"],
+                "grapes": ["grape", "grapes"],
+                "teapot": ["teapot", "tea pot", "tea"],
+                "blanket": ["blanket", "blank it", "blank"]
+            };
+
+            if (specialAliases[target.toLowerCase()]) {
+                for (let alias of specialAliases[target.toLowerCase()]) {
+                    if (s.includes(alias) || s.replace(/\s+/g, '').includes(alias.replace(/\s+/g, ''))) return true;
+                }
+            }
+
+            if (s.includes(t)) return true;
+            if (s.replace(/\s+/g, '').includes(t.replace(/\s+/g, ''))) return true;
+
+            const tSingular = t.replace(/(s|es)$/, '');
+            if (tSingular.length >= 3 && (s.includes(tSingular) || s.replace(/\s+/g, '').includes(tSingular))) return true;
+
+            const spokenWords = s.split(/\s+/);
+            for (let word of spokenWords) {
+                if (word.length >= 2) {
+                    if (calcLevenshteinSimilarity(word, t) >= 0.65) return true;
+                    if (tSingular.length >= 3 && calcLevenshteinSimilarity(word, tSingular) >= 0.65) return true;
+                }
+            }
+            if (calcLevenshteinSimilarity(s, t) >= 0.6) return true;
+
+            return false;
+        }
+
+        function calcLevenshteinSimilarity(s1, s2) {
+            if (s1 === s2) return 1.0;
+            if (!s1 || !s2) return 0.0;
+            const l1 = s1.length, l2 = s2.length;
+            const d = Array.from({ length: l1 + 1 }, () => new Array(l2 + 1).fill(0));
+            for (let i = 0; i <= l1; i++) d[i][0] = i;
+            for (let j = 0; j <= l2; j++) d[0][j] = j;
+            for (let i = 1; i <= l1; i++) {
+                for (let j = 1; j <= l2; j++) {
+                    const cost = s1[i - 1] === s2[j - 1] ? 0 : 1;
+                    d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost);
+                }
+            }
+            return (Math.max(l1, l2) - d[l1][l2]) / Math.max(l1, l2);
+        }
+
+        // ==========================================
+        // TRÒ CHƠI SẮP XẾP CÂU (BƯỚC 4)
+        // ==========================================
+        function initScrambleGame() {
+            const unit = lessonsData[currentUnitId];
+            const item = unit.vocab[currentVocabIdx];
+            const fullSentence = item.sentences[currentSentenceIdx];
+
+            const cleanSentence = fullSentence.replace(/[.,?!]/g, '').trim();
+            const words = cleanSentence.split(/\s+/);
+
+            let scrambled = [...words];
+            if (words.length > 1) {
+                let attempts = 0;
+                while (attempts < 10 && scrambled.join(' ') === words.join(' ')) {
+                    scrambled.sort(() => Math.random() - 0.5);
+                    attempts++;
+                }
+                if (scrambled.join(' ') === words.join(' ')) {
+                    [scrambled[0], scrambled[1]] = [scrambled[1], scrambled[0]];
+                }
+            }
+
+            selectedScrambleWords = [];
+
+            const content = document.getElementById('step-content');
+            content.innerHTML = `
+                <div class="scramble-progress-tag">
+                    🎯 Câu ${currentSentenceIdx + 1} / ${item.sentences.length} của từ: <b>"${item.word}"</b>
+                </div>
+                <div style="font-size: 19px; font-weight: bold; color: #1976D2;">
+                    🧩 Chạm vào các từ bên dưới để xếp thành câu đúng:
+                </div>
+                <div class="scramble-box" id="scramble-answer"></div>
+                <div class="word-bank" id="scramble-bank"></div>
+                <div class="feedback-text" id="scramble-feedback"></div>
+                
+                <button class="btn-large btn-audio" style="font-size: 15px; padding: 10px 18px;" onclick="speakText('${fullSentence}')">🔊 Nghe câu mẫu</button>
+                <button class="btn-large" style="background: #FF9800; font-size: 15px; padding: 10px 18px;" onclick="initScrambleGame()">🔄 Xếp lại</button>
+                <button class="btn-large" style="background: #90A4AE; font-size: 15px; padding: 10px 18px;" onclick="skipSentence()">Bỏ qua ⏩</button>
+            `;
+
+            renderScrambleTiles(words, scrambled);
+            speakText(fullSentence);
+        }
+
+        function renderScrambleTiles(targetWords, bankWords) {
+            const bankContainer = document.getElementById('scramble-bank');
+            const answerContainer = document.getElementById('scramble-answer');
+            const fb = document.getElementById('scramble-feedback');
+
+            if (!bankContainer || !answerContainer) return;
+
+            bankContainer.innerHTML = '';
+            bankWords.forEach((w, idx) => {
+                const tile = document.createElement('div');
+                tile.className = 'word-tile';
+                tile.innerText = w;
+                tile.onclick = () => {
+                    selectedScrambleWords.push(w);
+                    bankWords.splice(idx, 1);
+                    renderScrambleTiles(targetWords, bankWords);
+                };
+                bankContainer.appendChild(tile);
+            });
+
+            answerContainer.innerHTML = '';
+            selectedScrambleWords.forEach((w, idx) => {
+                const tile = document.createElement('div');
+                tile.className = 'word-tile placed';
+                tile.innerText = w;
+                tile.onclick = () => {
+                    bankWords.push(w);
+                    selectedScrambleWords.splice(idx, 1);
+                    renderScrambleTiles(targetWords, bankWords);
+                };
+                answerContainer.appendChild(tile);
+            });
+
+            if (bankWords.length === 0) {
+                const userSentence = selectedScrambleWords.join(' ').toLowerCase();
+                const correctSentence = targetWords.join(' ').toLowerCase();
+
+                if (userSentence === correctSentence) {
+                    playDingSound();
+                    addScore(10);
+                    statScrambleCorrect++;
+                    fb.innerHTML = `🌟 <b>XUẤT SẮC! (+10đ)</b> Bé đã xếp chính xác câu rồi!`;
+                    fb.className = "feedback-text feedback-success";
+                    setTimeout(finishCurrentSentence, 1500);
+                } else {
+                    fb.innerHTML = `Chưa đúng thứ tự rồi, bé chạm vào từ để chọn lại nhé!`;
+                    fb.className = "feedback-text feedback-warn";
+                }
+            } else {
+                fb.innerText = "";
+            }
+        }
+
+        function skipSentence() {
+            finishCurrentSentence();
+        }
+
+        function finishCurrentSentence() {
+            const unit = lessonsData[currentUnitId];
+            const item = unit.vocab[currentVocabIdx];
+
+            if (currentSentenceIdx < item.sentences.length - 1) {
+                currentSentenceIdx++;
+                initScrambleGame();
+            } else {
+                goToStep(5);
+            }
+        }
+
+        // ==========================================
+        // BƯỚC 5: ĐỐ VUI ĐIỀN CHỮ CÒN THIẾU
+        // ==========================================
+        function initMissingLetterGame() {
+            const unit = lessonsData[currentUnitId];
+            const item = unit.vocab[currentVocabIdx];
+            const rawWord = item.word.toUpperCase();
+
+            const validIndices = [];
+            for (let i = 0; i < rawWord.length; i++) {
+                if (/[A-Z]/.test(rawWord[i])) validIndices.push(i);
+            }
+
+            const hideIdx = validIndices[Math.floor(Math.random() * validIndices.length)];
+            const correctLetter = rawWord[hideIdx];
+
+            const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").filter(c => c !== correctLetter);
+            alphabet.sort(() => Math.random() - 0.5);
+            const distractors = alphabet.slice(0, 2);
+
+            const options = [correctLetter, ...distractors].sort(() => Math.random() - 0.5);
+
+            const content = document.getElementById('step-content');
+            content.innerHTML = `
+                <div class="visual-thumb-box" style="width: 100px; height: 100px; font-size: 50px;">
+                    ${item.icon}
+                </div>
+                <div style="font-size: 20px; font-weight: bold; color: #1976D2;">
+                    🔤 Thử thách: Bé hãy chọn chữ cái còn thiếu vào chỗ trống:
+                </div>
+                
+                <div class="missing-word-container" id="missing-tiles-box"></div>
+                <div class="letter-options" id="letter-options-box"></div>
+
+                <div class="feedback-text" id="letter-feedback">Chạm vào một chữ cái gợi ý bên dưới nhé!</div>
+
+                <button class="btn-large btn-audio" style="font-size: 15px; padding: 10px 18px;" onclick="speakText('${item.word}')">🔊 Nghe gợi ý phát âm</button>
+                <button class="btn-large" style="background: #90A4AE; font-size: 15px; padding: 10px 18px;" onclick="finishVocabItem()">Bỏ qua ⏩</button>
+            `;
+
+            renderMissingTiles(rawWord, hideIdx, null);
+            renderLetterOptions(options, correctLetter, hideIdx, rawWord);
+            speakText(item.word);
+        }
+
+        function renderMissingTiles(rawWord, hideIdx, filledLetter = null) {
+            const container = document.getElementById('missing-tiles-box');
+            if (!container) return;
+            container.innerHTML = '';
+
+            for (let i = 0; i < rawWord.length; i++) {
+                const char = rawWord[i];
+                const tile = document.createElement('div');
+
+                if (i === hideIdx) {
+                    if (filledLetter) {
+                        tile.className = 'char-tile filled-correct';
+                        tile.innerText = filledLetter;
+                    } else {
+                        tile.className = 'char-tile blank-tile';
+                        tile.innerText = '?';
+                    }
+                } else {
+                    tile.className = 'char-tile';
+                    tile.innerText = char;
+                }
+                container.appendChild(tile);
+            }
+        }
+
+        function renderLetterOptions(options, correctLetter, hideIdx, rawWord) {
+            const optionsBox = document.getElementById('letter-options-box');
+            const fb = document.getElementById('letter-feedback');
+            if (!optionsBox) return;
+            optionsBox.innerHTML = '';
+
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-letter-choice';
+                btn.innerText = opt;
+
+                btn.onclick = () => {
+                    if (opt === correctLetter) {
+                        playDingSound();
+                        addScore(10);
+                        statLetterCorrect++;
+                        btn.style.background = '#4CAF50';
+                        btn.style.color = '#FFF';
+                        btn.style.borderColor = '#2E7D32';
+
+                        renderMissingTiles(rawWord, hideIdx, correctLetter);
+
+                        fb.innerHTML = `🌟 <b>XUẤT SẮC! (+10đ)</b> Bé đã ghép đúng chữ <b>"${correctLetter}"</b> để hoàn thành từ <b>"${rawWord}"</b>!`;
+                        fb.className = "feedback-text feedback-success";
+
+                        speakText(rawWord);
+
+                        const allBtns = optionsBox.querySelectorAll('.btn-letter-choice');
+                        allBtns.forEach(b => b.disabled = true);
+
+                        setTimeout(finishVocabItem, 1700);
+                    } else {
+                        btn.classList.add('wrong');
+                        fb.innerHTML = `Chữ <b>"${opt}"</b> chưa đúng rồi, bé thử chữ khác nhé! Cố lên!`;
+                        fb.className = "feedback-text feedback-warn";
+                    }
+                };
+
+                optionsBox.appendChild(btn);
+            });
+        }
+
+        function finishVocabItem() {
+            const unit = lessonsData[currentUnitId];
+            if (currentVocabIdx < unit.vocab.length - 1) {
+                currentVocabIdx++;
+                currentSentenceIdx = 0;
+                currentStep = 1;
+                renderCurrentStep();
+                saveProgress();
+            } else {
+                currentStep = 6;
+                renderCurrentStep();
+            }
+        }
+
+        // ============================================================
+        // BƯỚC 6: BẢNG TỔNG KẾT & THỐNG KÊ SỐ ĐIỂM KHI HOÀN THÀNH UNIT
+        // ============================================================
+        function renderUnitSummary() {
+            playFanfareSound();
+            const unit = lessonsData[currentUnitId];
+            const content = document.getElementById('step-content');
+
+            const totalVocab = unit.vocab.length;
+            let totalSentences = 0;
+            unit.vocab.forEach(v => totalSentences += v.sentences.length);
+            const maxPossibleScore = (totalVocab * 10) + (totalSentences * 10) + (totalVocab * 10);
+
+            let stars = "⭐⭐⭐";
+            let remark = "Xuất sắc! Bé là thiên tài tiếng Anh! 🌟";
+            const percent = (unitScore / maxPossibleScore) * 100;
+            if (percent < 50) {
+                stars = "⭐";
+                remark = "Bé đã rất cố gắng! Hãy luyện tập thêm nhé! 💪";
+            } else if (percent < 80) {
+                stars = "⭐⭐";
+                remark = "Làm tốt lắm! Bé học rất chăm chỉ! 👏";
+            }
+
+            content.innerHTML = `
+                <div class="summary-card">
+                    <div class="summary-trophy">🏆</div>
+                    <div class="summary-title">BẢNG VÀNG THÀNH TÍCH</div>
+                    <div style="font-size: 16px; color: #555; margin-bottom: 4px;">Chúc mừng bé đã hoàn thành bài học:</div>
+                    <div style="font-size: 20px; font-weight: bold; color: #0284C7;">"${unit.title}"</div>
+                    
+                    <div class="summary-stars">${stars}</div>
+                    <div style="font-size: 16px; font-weight: bold; color: #2E7D32; margin-bottom: 12px;">${remark}</div>
+
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-label">🎤 Đọc chuẩn:</div>
+                            <div class="stat-value">${statReadCorrect} / ${totalVocab} từ</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">🧩 Xếp câu đúng:</div>
+                            <div class="stat-value">${statScrambleCorrect} / ${totalSentences} câu</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">🔤 Điền chữ đúng:</div>
+                            <div class="stat-value">${statLetterCorrect} / ${totalVocab} từ</div>
+                        </div>
+                        <div class="stat-item" style="border-left-color: #E91E63; background: #FFF1F2;">
+                            <div class="stat-label">🎯 Tổng số điểm:</div>
+                            <div class="stat-value" style="color: #E11D48;">${unitScore} đ</div>
+                        </div>
+                    </div>
+
+                    <button class="btn-large" style="background: var(--secondary); font-size: 17px; padding: 12px 24px;" onclick="startUnit(${unit.id}, 0, 1, 0)">
+                        🔄 Học lại Unit này
+                    </button>
+                    <button class="btn-large" style="background: var(--danger); font-size: 17px; padding: 12px 24px;" onclick="goHome()">
+                        🏠 Chọn Unit khác
+                    </button>
+                </div>
+            `;
+        }
+
+        function playDingSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(1046.5, ctx.currentTime + 0.35);
+                gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.start();
+                osc.stop(ctx.currentTime + 0.35);
+            } catch(e){}
+        }
+
+        function playFanfareSound() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const notes = [
+                    { f: 523.25, t: 0.0, d: 0.15 },
+                    { f: 659.25, t: 0.15, d: 0.15 },
+                    { f: 783.99, t: 0.30, d: 0.15 },
+                    { f: 1046.50, t: 0.45, d: 0.45 }
+                ];
+                notes.forEach(n => {
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(n.f, ctx.currentTime + n.t);
+                    gain.gain.setValueAtTime(0.25, ctx.currentTime + n.t);
+                    gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + n.t + n.d);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(ctx.currentTime + n.t);
+                    osc.stop(ctx.currentTime + n.t + n.d);
+                });
+            } catch(e){}
+        }
+    </script>
+</body>
+</html>
